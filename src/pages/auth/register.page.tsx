@@ -1,26 +1,28 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
-import { useAuth } from "reactfire"
+import CardFooterAuth from "@/components/card-footer-auth"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { useAuthActions } from "@/hooks/use-auth-action"
+
 
 const RegisterPage = () => {
 
-  const auth = useAuth()
-
-  const handleClickGoogle = async () => {
-    try {
-      const provider = new GoogleAuthProvider()
-      await signInWithPopup(auth, provider)
-      console.log("succesful logIn")
-    } catch (error) {
-      console.error("Error signing in with google", error)
-    }
-    
-  } 
+  const { loading } = useAuthActions()
 
   return (
-    <div>
-      <h1>Register</h1>
-      <button onClick={handleClickGoogle}>Sign In Google</button>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Register</CardTitle>
+        <CardDescription>
+          Register your account using Email and Password or with Google
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        Stuff...
+      </CardContent>
+      <CardFooterAuth
+        type="register"
+        loading={loading}
+      />
+    </Card>
   )
 }
 export default RegisterPage
