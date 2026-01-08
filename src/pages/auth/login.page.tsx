@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { toast } from "sonner"
 
 const LoginPage = () => {
 
@@ -33,11 +34,13 @@ const LoginPage = () => {
     const response = await login(data)
     if (!response.success) {
       if (response.error?.code === "auth/invalid/login-credentials") {
-        form.setError("email", {
-          type: "manual",
-          message: "Invalid email or password"
-        })
+        // form.setError("email", {
+        //   type: "manual",
+        //   message: "Invalid email or password"
+        // })
+        toast.error("Invalid email or password")
       }
+      return
     }
   }
 
