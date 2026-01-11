@@ -27,7 +27,7 @@ export const profileZodSchema = z.object({
         .string()
         .min(1, "Display name is required")
         .max(50, "Display name must be at most 50 characters long"),
-    photoUrl: z.url("Invalid URL").optional().or(z.literal("")),
+    photoUrl: z.union([z.url("Invalid URL format"), z.literal("")]).optional(),
 })
 
 export type ProfileZodSchemaType = z.infer<typeof profileZodSchema>
