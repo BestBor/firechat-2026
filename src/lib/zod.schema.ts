@@ -13,7 +13,7 @@ export const registerZodSchema = z.object({
         .min(1, "Display name is required")
         .max(50, "Display anme must be at most 50 characters long"),
     password: z.string().min(6, "Password must be at least 6 characters long"),
-    confirmPassword: z.string(),
+    confirmPassword: z.string().min(6, "Confirmed password must be at least 6 characters long"),
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: "Passwords do not match",
@@ -22,3 +22,12 @@ export const registerZodSchema = z.object({
 
 export type RegisterZodSchemaType = z.infer<typeof registerZodSchema>
 
+export const profileZodSchema = z.object({
+    displayName: z
+        .string()
+        .min(1, "Display name is required")
+        .max(50, "Display name must be at most 50 characters long"),
+    photoUrl: z.url("Invalid URL").optional().or(z.literal("")),
+})
+
+export type ProfileZodSchemaType = z.infer<typeof profileZodSchema>
