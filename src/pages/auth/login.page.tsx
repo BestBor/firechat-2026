@@ -1,5 +1,5 @@
 import CardFooterAuth from "@/components/card-footer-auth"
-import { useAuthActions } from "@/hooks/use-auth-action"
+import { useAuthActions } from "@/hooks/use-auth-actions"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"

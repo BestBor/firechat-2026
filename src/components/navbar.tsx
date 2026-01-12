@@ -1,4 +1,4 @@
-import { useAuthActions } from "@/hooks/use-auth-action"
+import { useAuthActions } from "@/hooks/use-auth-actions"
 import {
     LayoutDashboard,
     MessageCircle,

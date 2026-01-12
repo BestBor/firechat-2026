@@ -1,7 +1,7 @@
 import { toast } from "sonner"
 import { Button } from "./ui/button"
 import { CardFooter } from "./ui/card"
-import { useAuthActions } from "@/hooks/use-auth-action"
+import { useAuthActions } from "@/hooks/use-auth-actions"
 
 import { Mail } from "lucide-react"
 import { Link } from "react-router"
