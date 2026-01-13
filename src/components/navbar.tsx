@@ -3,6 +3,7 @@ import {
     LayoutDashboard,
     MessageCircle,
     User,
+    ListTodo,
     LogOut
 } from "lucide-react"
 import { NavLink } from "react-router"
@@ -13,7 +14,7 @@ const navigation = [
     {name: "Dashboard", href: "/admin", icon: LayoutDashboard},
     {name: "Chat", href: "/admin/chat", icon: MessageCircle},
     {name: "Profile", href: "/admin/profile", icon: User},
-
+    {name: "Tasks", href: "/admin/tasks", icon: ListTodo},
 ]
 
 const Navbar = () => {
