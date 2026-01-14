@@ -10,11 +10,11 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useTransition } from "react"
 import { useTaskActions } from "@/hooks/use-task-actions"
+import { toast } from "sonner"
 
 const FormTask = () => {
 
@@ -24,14 +24,22 @@ const FormTask = () => {
 
     const form = useForm<TaskZodSchemaType>({
     resolver: zodResolver(taskZodSchema),
-    defaultValues: {
-      title: "",
-      description: "",
-    },
-  })
+        defaultValues: {
+            title: "",
+            description: "",
+        },
+    })
 
   function onSubmit(values: TaskZodSchemaType) {
-    console.log(values)
+    startTransition(async() => {
+        try {
+            await createTask(values)
+            form.reset()
+        } catch (error) {
+            console.error("Error creating task:", error)
+            toast.error("Failed to create task")
+        }
+    })
   }
 
   return <Form {...form}>
@@ -62,7 +70,9 @@ const FormTask = () => {
                 </FormItem>
             )}
         />
-        <Button type="submit">Create Task</Button>
+        <Button type="submit" disabled={isPending}>
+            {isPending ? "Creating...":"Create Task"}
+        </Button>
     </form>
   </Form>
 }

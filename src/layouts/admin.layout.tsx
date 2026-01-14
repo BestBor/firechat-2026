@@ -32,11 +32,8 @@ const AdminLayout = () => {
 export default AdminLayout
 
 const AuthenticatedLayout = () => {
-  useUser({
-    suspense: true
-  })
-
-
+  useUser({ suspense: true })
+  
   return (
     <div>
       <Navbar/>

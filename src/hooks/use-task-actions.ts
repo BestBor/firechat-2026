@@ -2,21 +2,20 @@ import { useFirestore, useFirestoreCollectionData, useUser } from "reactfire"
 import {
     addDoc,
     collection,
+    deleteDoc,
+    doc,
     query,
+    updateDoc,
     where,
 } from "firebase/firestore"
 import type { Task } from "@/schemas/task.schema"
 
 export const useTaskActions = () => {
-    const {data: user} = useUser()
+    const { data: user } = useUser()
 
-    if (!user) {
-        throw new Error("User not authenticated")
-    }
-
+    if (!user) throw new Error("User not authenticated")
 
     const db = useFirestore()
-
     const taskCollectionRef = collection(db, "tasks")
 
     const tasksQuery = query(
@@ -39,8 +38,23 @@ export const useTaskActions = () => {
             completed: false,
             userId: user!.uid,
         }
-
         return await addDoc(taskCollectionRef, newTask)
+    }
+
+    // DELETE:
+    const deleteTask = async (taskId: string) => {
+        const taskDoc = doc(db, "tasks", taskId)
+        return await deleteDoc(taskDoc)
+    }
+
+    // UPDATE:
+    const updateTask = async (taskId: string) => {
+        const task = tasks.find((task) => task.id === taskId)
+        const taskDoc = doc(db, "tasks", taskId)
+
+        if (!task) throw new Error("Task not found")
+
+        return await updateDoc(taskDoc, { completed: !task.completed })
     }
 
     return {
@@ -48,5 +62,7 @@ export const useTaskActions = () => {
         isLoading: status === "loading",
 
         createTask,
+        updateTask,
+        deleteTask,
     }
 }
