@@ -45,7 +45,7 @@ const FormMessageChat = ({roomId}: Props) => {
             render={({field}) => (
                 <FormItem>
                     <FormControl>
-                        <Input placeholder="" {...field} />
+                        <Input placeholder="Write message" {...field} />
                     </FormControl>
                     <FormMessage />
                 </FormItem>
