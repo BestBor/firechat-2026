@@ -38,3 +38,9 @@ export const taskZodSchema = z.object({
 })
 
 export type TaskZodSchemaType = z.infer<typeof taskZodSchema>
+
+export const messageZodSchema = z.object({
+    text: z.string().trim().min(1, "Cannot send empty message")
+})
+
+export type MessageZodSchemaType = z.infer<typeof messageZodSchema>
