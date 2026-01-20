@@ -51,7 +51,7 @@ const FormMessageChat = ({roomId}: Props) => {
                 </FormItem>
             )}
         />
-        <Button type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isLoading} className="space-y-2">
             {
                 isLoading ? "Sending" : "Send"
             }
