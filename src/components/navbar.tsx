@@ -22,32 +22,42 @@ const Navbar = () => {
     const { logout } = useAuthActions()
 
   return (
-    <header className="shadow-md border-b">
-        <nav className="p-4 flex gap-4">
-        {
-            navigation.map(item => (
-                <NavLink
-                    key={item.name}
-                    to={item.href}
-                    className={
-                        ({isActive}) => (
-                            cn(
-                                "text-gray-700 hover:text-emerald-300 flex items-center gap-2",
-                                isActive ? "text-emerald-500 font-semibold" : "text-gray-700"
+    <header className="bg-card border-b border-border shadow-sm sticky top-0 z-50">
+        <nav className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 flex items-center gap-2 sm:gap-6 overflow-x-auto">
+          {/* Navigation Links */}
+          <div className="flex gap-1 sm:gap-4 flex-1 overflow-x-auto">
+            {
+                navigation.map(item => (
+                    <NavLink
+                        key={item.name}
+                        to={item.href}
+                        className={
+                            ({isActive}) => (
+                                cn(
+                                    "flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 whitespace-nowrap text-sm sm:text-base font-medium",
+                                    isActive 
+                                        ? "bg-primary text-primary-foreground shadow-md" 
+                                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                )
                             )
-                        )
-                    }
-                    end
-                >
-                    <item.icon className="w-5 h-5" />
-                    { item.name }
-                </NavLink>
-            ))
-        }
-        <Button onClick={logout} className="ml-auto">
-            <LogOut className="w-5 h-5"/>
-            Logout
-        </Button>
+                        }
+                        end
+                    >
+                        <item.icon className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                        <span className="hidden sm:inline">{ item.name }</span>
+                    </NavLink>
+                ))
+            }
+          </div>
+          
+          {/* Logout Button */}
+          <button
+            onClick={logout}
+            className="ml-auto flex items-center gap-2 px-3 py-2 rounded-lg bg-destructive hover:bg-destructive/90 text-destructive-foreground transition-all shadow-md hover:shadow-lg font-medium text-sm sm:text-base active:scale-95 flex-shrink-0"
+          >
+            <LogOut className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="hidden sm:inline">Logout</span>
+          </button>
         </nav>
     </header>
   )

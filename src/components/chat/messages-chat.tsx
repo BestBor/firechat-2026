@@ -1,5 +1,6 @@
 import { useMessagesActions } from "@/hooks/use-messages-actions"
 import MessageChat from "./message-chat"
+import { useEffect, useRef } from "react"
 
 interface Props {
     roomId: string,
@@ -7,6 +8,15 @@ interface Props {
 
 const MessagesChat = ({roomId}:Props) => {
   const {messages} = useMessagesActions(roomId)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
 
   return (
     <div className="space-y-2">
@@ -15,8 +25,8 @@ const MessagesChat = ({roomId}:Props) => {
           <MessageChat key={msg.id} message={msg} />
         ))
       }
+      <div ref={messagesEndRef} />
     </div>
-    // <pre>{JSON.stringify(messages, null, 2)}</pre>
   )
 }
 export default MessagesChat

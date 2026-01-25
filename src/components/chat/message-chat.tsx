@@ -15,20 +15,34 @@ const MessageChat = ({ message }: Props) => {
   return (
     <div
       className={cn(
-        "max-w-37.5 p-2 rounded",
-        isFriend ? "bg-purple-200" : "bg-green-200 ml-auto",
+        "flex gap-3 animate-in fade-in-50 slide-in-from-bottom-2",
+        isFriend ? "justify-start" : "justify-end",
       )}
     >
-      <p>{message.text}</p>
-      <p className="truncate text-xs">
-        {isFriend ? (
-          <Suspense fallback="Loading user info...">
-            <FriendEmail friendUid={message.senderId} />
-          </Suspense>
-        ) : (
-          user.email
+      <div
+        className={cn(
+          "max-w-sm px-4 py-2.5 rounded-2xl shadow-sm border",
+          isFriend
+            ? "bg-muted text-foreground border-border"
+            : "bg-primary text-primary-foreground border-primary",
         )}
-      </p>
+      >
+        <p className="text-sm leading-relaxed break-words">{message.text}</p>
+        <p
+          className={cn(
+            "truncate text-xs mt-1.5 opacity-70 font-medium",
+            isFriend ? "text-muted-foreground" : "text-primary-foreground/80",
+          )}
+        >
+          {isFriend ? (
+            <Suspense fallback="...">
+              <FriendEmail friendUid={message.senderId} />
+            </Suspense>
+          ) : (
+            user.email
+          )}
+        </p>
+      </div>
     </div>
   );
 };

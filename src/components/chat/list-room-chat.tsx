@@ -9,16 +9,19 @@ const ListRoomChat = ({ handleClickRoomId }: Props) => {
   const { rooms } = useRoomActions();
 
   return (
-    <pre>
-      {rooms.map((room) => (
-        <RoomSelector
+    <div className="space-y-2">
+      {rooms.length === 0 ? (
+        <p className="text-sm text-muted-foreground text-center py-8">No conversations yet</p>
+      ) : (
+        rooms.map((room) => (
+          <RoomSelector
             key={room.id}
             room={room}
             handleClickRoomId={handleClickRoomId}
-        />
-      ))}
-      {/* {JSON.stringify(rooms, null, 2)} */}
-    </pre>
+          />
+        ))
+      )}
+    </div>
   );
 };
 export default ListRoomChat;
